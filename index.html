@@ -74,6 +74,7 @@
             align-items: center;
             margin-top: 10px;
             gap: 15px;
+            flex-wrap: wrap;
         }
     
         .time-unit {
@@ -119,23 +120,49 @@
             }
         }
     
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .countdown-container {
                 padding: 20px;
             }
     
             .countdown {
                 flex-direction: column;
-                gap: 15px;
+                gap: 10px;
             }
     
             .time-value {
                 font-size: 50px;
             }
+    
+            .progress-bar {
+                height: 6px;
+            }
+    
+            .countdown-container img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            .countdown-container {
+                padding: 15px;
+            }
+
+            .time-value {
+                font-size: 40px;
+            }
+
+            .progress-bar {
+                height: 5px;
+            }
+
+            .countdown-container img {
+                width: 100px;
+                height: 100px;
+            }
         }
     </style>
-    
-
 </head>
 <body>
 
