@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinnamoroll Countdown</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #A6D8FF; /* Soft Cinnamoroll Blue */
+            color: #333;
+            overflow: hidden;
+            animation: backgroundAnimation 10s infinite alternate;
+        }
+    
+        @keyframes backgroundAnimation {
+            0% {
+                background: #A6D8FF; /* Soft Cinnamoroll Blue */
+            }
+            100% {
+                background: #B9E4F1; /* Slightly lighter pastel blue */
+            }
+        }
+    
+        .countdown-container {
+            text-align: center;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.85);
+            color: #333;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+    
+        .countdown-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+        }
+    
+        .countdown-container h1 {
+            margin-bottom: 20px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #84C9F7; /* Soft light blue */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Styling the image */
+        .countdown-container img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Make image circular */
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add soft shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+    
+        .countdown-container img:hover {
+            transform: scale(1.1); /* Slight zoom effect */
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+        }
+    
+        .countdown {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            margin-top: 10px;
+            gap: 15px;
+        }
+    
+        .time-unit {
+            text-align: center;
+            color: #6E9ED1; /* Lavender blue */
+        }
+    
+        .time-value {
+            font-size: 60px;
+            font-weight: bold;
+            color: #84C9F7; /* Soft light blue */
+            animation: fadeIn 1s ease-in-out;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    
+        .time-unit div {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+    
+        .progress-bar {
+            margin-top: 20px;
+            width: 100%;
+            height: 8px;
+            background-color: #F4F4F9; /* Light pastel gray */
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+    
+        .progress {
+            height: 100%;
+            background-color: #84C9F7; /* Pastel blue to match Cinnamoroll theme */
+            transition: width 1s ease-in-out;
+        }
+    
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    
+        @media (max-width: 600px) {
+            .countdown-container {
+                padding: 20px;
+            }
+    
+            .countdown {
+                flex-direction: column;
+                gap: 15px;
+            }
+    
+            .time-value {
+                font-size: 50px;
+            }
+        }
+    </style>
+    
+
+</head>
+<body>
+
+    <div class="countdown-container">
+        <img src="https://cdn.shopify.com/s/files/1/1083/2612/files/cr2_480x480.png?v=1721726734" alt="Cinnamoroll">
+        <h1>Nicole comes back!</h1>
+        <div class="countdown">
+            <div class="time-unit">
+                <div class="time-value" id="days">00</div>
+                <div>Days</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="hours">00</div>
+                <div>Hours</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="minutes">00</div>
+                <div>Minutes</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="seconds">00</div>
+                <div>Seconds</div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div id="progress" class="progress"></div>
+        </div>
+    </div>
+
+    <script>
+        // Set the date of the event
+        const eventDate = new Date("February 14, 2025 06:00:00").getTime();
+
+        // Sound to play when the event arrives
+        const eventSound = new Audio('https://www.soundjay.com/button/beep-07.wav');  // Add your own sound URL
+
+        // Update the countdown every 1 second
+        const countdownInterval = setInterval(function() {
+            const currentDate = new Date().getTime();
+            const timeLeft = eventDate - currentDate;
+            
+            // Calculate time remaining in days, hours, minutes, seconds
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            // Display the results
+            document.getElementById("days").innerText = days.toString().padStart(2, "0");
+            document.getElementById("hours").innerText = hours.toString().padStart(2, "0");
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, "0");
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, "0");
+
+            // Calculate progress bar width
+            const totalTime = eventDate - new Date("January 1, 2025 00:00:00").getTime();
+            const timeElapsed = currentDate - new Date("January 1, 2025 00:00:00").getTime();
+            const progressPercentage = (timeElapsed / totalTime) * 100;
+            document.getElementById("progress").style.width = progressPercentage + "%";
+
+            // If the countdown is finished, display a message
+            if (timeLeft < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector(".countdown").innerHTML = "<h2>The event has arrived!</h2>";
+
+                // Play sound
+                eventSound.play();
+
+                // Optional: Add a celebration animation or notification
+                alert("The event has arrived!");
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
